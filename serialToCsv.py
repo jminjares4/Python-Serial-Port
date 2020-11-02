@@ -1,6 +1,6 @@
 '''
 Author: Jesus Minjares
-Date: 10/21/2020
+Date: 11/02/2020
 App:
     The application will store serial data into a .csv file.It will use 
     serial module.
@@ -28,7 +28,7 @@ import serial
 # set variables to 0
 sample, adcRaw, volt = 0, 0, 0
 # set the filed names
-fieldnames = ["sample", "adcRaw", "volt"]
+fieldnames = ["sample","time", "adcRaw", "volt"]
 '''
 Note: If using PyCharm with Windows:
         set serial port to 'COMX', X being the com port number 
@@ -55,11 +55,13 @@ while True:
         reading = ser.readline().decode('utf-8');  # store serial reading as utf-8 into reading variable
         reading.replace('\r\n','')  # remove \r\n
         data = reading.split(' ')  # split the data with spaces 
-        adcRaw = int(data[0])  # store data[0] as an integer 
-        volt = float(data[1])  # store data[1] as a float  
+        time = str(data[0])  # store the time stamp  
+        adcRaw = int(data[1])  # store data[0] as an integer 
+        volt = float(data[2])  # store data[1] as a float  
         # create a dictionary to store the serial data 
         info = {
             "sample": sample,
+            "time": time,
             "adcRaw": adcRaw,
             "volt": volt
         }
